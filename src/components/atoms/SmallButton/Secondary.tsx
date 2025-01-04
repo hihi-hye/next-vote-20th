@@ -17,7 +17,7 @@ export default function Secondary({
   isSelected?: boolean;
 }) {
   return (
-    <SecondaryButton onClick={onClick} $isSelected={isSelected}>
+    <SecondaryButton type="button" onClick={onClick} $isSelected={isSelected}>
       <Text variant="title1_rg">{text}</Text>
     </SecondaryButton>
   );

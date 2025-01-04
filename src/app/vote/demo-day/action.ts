@@ -1,14 +1,8 @@
 'use server';
 
 import { cookies } from 'next/headers';
-type VoteResponse = {
-  message: string;
-  code: string;
-  status: string;
-};
-export default async function voteTeam(
-  teamName: string,
-): Promise<VoteResponse> {
+
+export default async function voteTeam(teamName: string) {
   try {
     const formData = new FormData();
     formData.set('leaderId', teamName);
@@ -33,12 +27,9 @@ export default async function voteTeam(
       throw new Error(result.message);
     }
 
-    return {
-      message: result.message,
-      code: result.code,
-      status: result.status,
-    };
+    return '투표가 완료되었습니다.';
   } catch (error) {
-    throw error;
+    console.error(error);
+    return (error as any).toString();
   }
 }

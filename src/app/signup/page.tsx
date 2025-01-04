@@ -1,6 +1,7 @@
 'use client';
 
 import { ReactNode, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import CTAButton from '@/components/atoms/CTAButton';
 import Text from '@/components/atoms/Text';
 import {
@@ -63,6 +64,7 @@ export default function Main() {
     team: '',
     part: '',
   });
+  const router = useRouter();
 
   const [pending, setPending] = useState(false);
 
@@ -71,11 +73,12 @@ export default function Main() {
 
     setPending(true);
 
-    try {
-      await signUp(data);
-    } catch (error) {
-      console.error('Error during signup:', error);
-    } finally {
+    const response = await signUp(data);
+
+    if (response) {
+      router.push('/signin');
+    } else {
+      alert('회원가입 정보가 잘못되었습니다.');
       setPending(false);
     }
   };

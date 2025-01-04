@@ -1,12 +1,8 @@
 'use server';
 
 import { cookies } from 'next/headers';
-type VoteResponse = {
-  message: string;
-  code: string;
-  status: string;
-};
-export default async function voteBE(leaderId: number): Promise<VoteResponse> {
+
+export default async function voteBE(leaderId: number) {
   try {
     const formData = new FormData();
     formData.set('leaderId', leaderId.toString());
@@ -26,18 +22,14 @@ export default async function voteBE(leaderId: number): Promise<VoteResponse> {
       },
     );
     const result = await response.json();
-    console.log(result);
 
     if (!response.ok) {
       throw new Error(result.message);
     }
 
-    return {
-      message: result.message,
-      code: result.code,
-      status: result.status,
-    };
+    return '투표가 완료되었습니다.';
   } catch (error) {
-    throw error;
+    console.error(error);
+    return (error as any).toString();
   }
 }

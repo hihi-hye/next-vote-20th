@@ -77,11 +77,9 @@ export default function SignInPage() {
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const accessToken = await signIn(data);
-    console.log(data);
-    console.log(accessToken);
+    const response = await signIn(data);
 
-    if (accessToken) {
+    if (response) {
       router.push('/home');
     } else {
       alert('로그인 실패: 아이디 또는 비밀번호를 확인하세요.');

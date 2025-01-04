@@ -38,11 +38,6 @@ const Item = styled.div`
   border-radius: 2rem;
 `;
 
-const ButtonContainer = styled.div`
-  display: flex;
-  gap: 1rem;
-  width: 100%;
-`;
 const ButtonWrapper = styled(Link)`
   width: 100%;
 `;
@@ -65,14 +60,9 @@ export default function VoteResultScreen({
         ))}
       </ListWrapper>
 
-      <ButtonContainer>
-        <ButtonWrapper href="/vote/front-end">
-          <CTAButton type="button" text="투표 페이지로 돌아가기" />
-        </ButtonWrapper>
-        <ButtonWrapper href="/home">
-          <CTAButton type="button" text="다른 파트 투표하기" />
-        </ButtonWrapper>
-      </ButtonContainer>
+      <ButtonWrapper href="/vote/front-end">
+        <CTAButton type="button" text="투표 페이지로 돌아가기" />
+      </ButtonWrapper>
     </Container>
   );
 }
