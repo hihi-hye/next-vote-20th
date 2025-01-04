@@ -19,6 +19,7 @@ export default async function signIn(data: {
       credentials: 'include',
     });
 
+    console.log(response);
     if (!response.ok) {
       throw new Error('Authentication failed');
     }

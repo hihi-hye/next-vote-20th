@@ -9,6 +9,7 @@ import CTAButton from '@/components/atoms/CTAButton';
 import SmallButton from '@/components/atoms/SmallButton';
 import { Candidate } from '@/data/types';
 import voteFE from './action';
+import { useRouter } from 'next/navigation';
 
 const Container = styled.div`
   display: flex;
@@ -46,6 +47,26 @@ export default function VoteScreen({
   const [selectedCandidate, setSelectedCandidate] = useState<Candidate | null>(
     null,
   );
+  const router = useRouter();
+
+  async function handleVote() {
+    if (!selectedCandidate) return;
+
+    try {
+      // 투표 API 호출
+      const response = await voteFE(selectedCandidate.id);
+
+      // 성공적인 응답 처리
+      if (response.status === 'success') {
+        alert(response.message); // 성공 메시지 표시
+        router.push('/vote/front-end/result'); // 결과 페이지로 이동
+      } else {
+        throw new Error(response.message || 'Unexpected error occurred'); // 실패 시 에러 던지기
+      }
+    } catch (error: any) {
+      alert(error.message || '투표에 실패했습니다.'); // 에러 메시지 표시
+    }
+  }
 
   return (
     <Container>
@@ -67,11 +88,7 @@ export default function VoteScreen({
           type="submit"
           text="투표하기"
           disabled={!selectedCandidate}
-          onClick={() => {
-            voteFE(selectedCandidate!.id).then((response) => {
-              alert(response);
-            });
-          }}
+          onClick={handleVote}
         />
         <Link href="/vote/front-end/result">
           <CTAButton type="submit" text="결과 보기" variant="secondary" />

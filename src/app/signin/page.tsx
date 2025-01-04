@@ -78,6 +78,8 @@ export default function SignInPage() {
     e.preventDefault();
 
     const accessToken = await signIn(data);
+    console.log(data);
+    console.log(accessToken);
 
     if (accessToken) {
       router.push('/home');
